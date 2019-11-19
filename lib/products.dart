@@ -2,25 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:good/screens/product_screen.dart';
 
 class Products extends StatelessWidget {
-  final List<String> products;
+  final List<Map<String, String>> products;
+  final Function deleteProduct;
 
-  Products({this.products});
+  Products({this.products, this.deleteProduct});
 
   Widget _productItembuilder(BuildContext context, int index) {
     return Card(
       elevation: 5,
       child: Column(
         children: <Widget>[
-          Image.asset('assets/images/food.jpg'),
-          Text(products[index]),
+          Image.asset(products[index]['image']),
+          Text(products[index]['title']),
           ButtonBar(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               FlatButton(
                 child: Text("Details"),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProductScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductScreen(
+                          products[index]["title"], products[index]['image']),
+                    ),
+                  ).then((value) {
+                    if (value) {
+                      deleteProduct(index);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                                content: Text('Product deleted Successfully!'),
+                              ));
+                    }
+                  });
                 },
               )
             ],
