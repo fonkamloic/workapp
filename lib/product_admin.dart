@@ -4,12 +4,12 @@ import 'package:good/products.dart';
 import 'package:good/screens/product_create.dart';
 import 'package:good/screens/product_list.dart';
 
-class ProductManager extends StatefulWidget {
+class ProductAdmin extends StatefulWidget {
   @override
-  _ProductManagerState createState() => _ProductManagerState();
+  _ProductAdminState createState() => _ProductAdminState();
 }
 
-class _ProductManagerState extends State<ProductManager> {
+class _ProductAdminState extends State<ProductAdmin> {
   _addProduct(Map<String, String> item) {
     setState(() {
       _products.add(item);
